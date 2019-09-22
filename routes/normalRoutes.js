@@ -96,9 +96,6 @@ router.post("/login",function(req,res,next){
     }
   })(req, res, next);
 })
-router.get('/register',(req,res,next)=>{
-  res.sendFile(path.resolve(__dirname, '../views', 'index.html'));
-})
 
 router.post("/signup", function (req, res, next) {
   var username = req.body.username;

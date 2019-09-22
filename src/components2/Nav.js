@@ -269,7 +269,7 @@ class PrimarySearchAppBar extends React.Component {
                     </li>:
                                    <li>
                                                    <Link to={"/"+this.state.username} >
-                                                       <span><i className="fa fa-sign-out" ></i></span>
+                                                       <span>{'   '}<i className="fa fa-sign-out" ></i></span>
                                                        Logout
                                                    </Link>
                                                </li>
