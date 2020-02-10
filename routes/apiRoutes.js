@@ -1554,7 +1554,7 @@ router.get('/phone',ensureAuth,(req,res,next)=>{
   res.sendFile(path.resolve(__dirname, '../views', 'index.html'));
 }); 
 
-router.get('/*',(req,res,next)=>{
+router.get('/*',ensureAuth,(req,res,next)=>{
    res.sendFile(path.resolve(__dirname, '../views', 'index.html'));
 });
 module.exports=router;  

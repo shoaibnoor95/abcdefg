@@ -204,7 +204,7 @@ passport.authenticate('local-login',function (err, user, message){
   })
    });
   });
-router.get('/passwordReset',(req,res,next)=>{    
+router.get('/passwordReset',(req,res)=>{    
       res.sendFile(path.resolve(__dirname, '../views', 'index.html'));
 });
 router.post('/resetPassword',(req,res,next)=>{
@@ -256,7 +256,7 @@ router.post('/resetPassword',(req,res,next)=>{
                  res.send({mail:true})
     })
   })
-  router.get('/passwordResetToken',(req,res,next)=>{
+  router.get('/passwordResetToken',(req,res)=>{
     
   Token.findOne({ "token": req.query.id }, function (err, token) {
     if(err){
@@ -296,62 +296,11 @@ router.get('/password_Reset/274sakldajdaskjaskld23280923089213893kdasjklasjddljk
   res.sendFile(path.resolve(__dirname, '../views', 'index.html'));
 });
 
-//  router.get('/passwordResetToken',(req,res,next)=>{
-//   Token.findOne({ "token": req.query.id }, function (err, token) {
-//     if(err){
-//        res.send({danger:true})
-//        return;
-//     }
-//     if (!token) 
-//     {
-//       res.send({success:false})
-//       return; 
-//     }
-   
-//     User.findOne({ _id: token._userId }, function (err, user) {
-//       if (!user) 
-//       { 
-//         res.send({message:'No account found'})
-//         return;
-//     }
-//           if (user.isVerified)
-//           { 
-//             res.send ({verified:true,success:true});
-//             return;
-//           }
-                  
-//       user.emailAuth = true;
-//       user.save(function (err) {
-//         if (err) { 
-//           res.send({ danger: true}); 
-//           return;
-//       }
-//           res.send({success:true})
-//           return;
-//         });
-//       });
-//     });
-
-//  })
  
-  router.get('/searching',(req,res,next)=>{
+  router.get('/searching',(req,res)=>{
   var search=arrayWrap(req.query.search ||"");
   var terms= search[0].split(" ")
-  // User.aggregate(
-  // [
-  //   {
-  //     $group:{
 
-  //      _id:{ "teach":{ $regex:'.*'+req.query.search+'.*','$options' : 'i'},'teach':'$teach'}
-  //     }
-    
-  // }
-  // ]).exec(function(err,user){
-  //   if(err){
-  //     console.log(err)
-  //   }
-  //   var teaching=user[0]._id
-  //   res.send({users:teaching})   
   User.find({teach:{ $regex:'.*'+terms+'.*'}},'teach',{'group':'teach'}).limit(10).exec(function(err,user){
     if(err) {return res.send({messag:err.message})}
     res.send({users:user})

@@ -21,7 +21,7 @@ class Files extends React.Component{
         }
     }
     componentDidMount(){
-//    this.props.check();
+   this.props.check();
         axios({url:'/getUsernme',
         withCredentials:true,
         method:'get'})
@@ -99,7 +99,7 @@ class Files extends React.Component{
                </ul>
                <div style={{fontSize:"110%",color:'red',paddingLeft:'2%',paddingRight:'2%'}}><b>Note: </b>Your files will be deleted from our server with in 40 days its just for verification as you submit your document to any tuition/tutor provider we will responsible for any misuse of your files</div> 
             <div style={{textAlign:'center'}} >
-            <img  src="samples.png" style={{width:"400px",height:'400px',float:'none'}}/>
+            <img  src="/samples.png" style={{maxWidth:"350px",width:'auto',height:"350px",float:'none'}}/>
             </div>
             <div style={{color:'red',textAlign:'center'}}>{this.state.message} </div>
          <div>

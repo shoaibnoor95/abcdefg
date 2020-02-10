@@ -97,7 +97,7 @@ class Phone extends React.Component{
             <div style = {{border : '2px solid #788EA8'  , borderRadius : '5px' ,  margin : '20px' , marginLeft : '12px' } }>
             
             <div style={{width:'100%',height:'100%',textAlign:'center'}}>
-            <img src="phone.png" style={{width:'350px',height:'350px',float:'none'}}/> <br/><br/>
+            <img src="/phone.png" style={{maxWidth:'350px',width:'auto',height:'350px',float:'none'}}/> <br/><br/>
             Your number <Input type="text" disabled value={"+92"+this.state.phone} />
             <div style={{alignContent:'center',color:'red'}}>
              Keep your phone along with you we will gonna send a confirmation message to your phone<br/>

@@ -1,11 +1,9 @@
 const path=require('path');
 const webpack=require('webpack');
-//const htmlWebPackPlugin=require('html-webpack-plugin');
-const StyleExtHtmlWebpackPlugin=require('style-ext-html-webpack-plugin');
 //const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const preloadWebpackPlugin=require('preload-webpack-plugin');
-const CompressionPlugin=require('compression-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const {CleanWebpackPlugin}=require('clean-webpack-plugin')
+
 module.exports={
     devtool: 'source-map',
     entry:{
@@ -85,86 +83,34 @@ module.exports={
               },
               {test: /\.(eot|woff|woff2)$/, 
                 loader: "file-loader"}
-                // ,{
-                //     test: /\.ttf$/,
-                //     use: [
-                //       {
-                //         loader: 'ttf-loader',
-                //         options: {
-                //           name: './font/[hash].[ext]',
-                //         },
-                //       },
-                 //   ]
-                //}
             ]
     },
-    // plugins:[
-    //     new webpack.DefinePlugin({
-    //         'process.browser':true
-    //     }),
-    //     new webpack.optimize.CommonsChunkPlugin({
-    //         name:'vendor',
-    //         filename:'vendor.bundle.js',
-    //         minChunks(module){
-    //             return module.context &&
-    //             module.context.indexOf('node_modules')>=0;
-    //         }
-    //     }),
-    //     new webpack.optimize.UglifyJsPlugin({
-    //         compress:{
-    //             warnings:false,
-    //             screw_ie8:true,
-    //             conditionals:true,
-    //             unused:true,
-    //             comparisons:true,
-    //             sequences:true,
-    //             dead_code:true,
-    //             evaluate:true,
-    //             if_return:true,
-    //             join_vars:true,
-        
-    //         },
-    //             comments:false,
-    //     }),
-    //     new webpack.HashedModuleIdsPlugin(),
-    //     new webpack.DefinePlugin({
-    //         'process.env.NODE_ENV':JSON.stringify('production')
-    //     }),
-    //     // new ExtractTextPlugin({
-    //     //     filename:(getPath)=>{
-    //     //         return getPath('css/[name].css').replace('css/js','css')
-    //     //     },
-    //     //     allchunks:true,
-    //     // }),
-    //     new StyleExtHtmlWebpackPlugin({
-    //         minify:true
-    
-    //     }),
-    //     new ScriptExtHtmlWebpackPlugin({
-    //         defaultAttribute:'defer'
-            
-    //     }),
-    
-    //     new preloadWebpackPlugin({
-    //         rel:'preload',
-    //         as:'script',
-    //         include:'all',
-    //         fileBlacklist:[/\.(css|map)$/,/base?.+/]
-        
-    //     }),
-    //     new CompressionPlugin({
-    //         algorithm:'gzip',
-    //         asset:'[path].gz[query]',
-    //         //deleteOriginalAssets:/\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
-    //         threshold:10240,
-    //         minRatio:0.8
-    //     })
-    // ]
+    optimization: {
+        splitChunks: {
+          chunks: 'async',
+          minSize: 30000,
+          maxSize: 0,
+          minChunks: 1,
+          maxAsyncRequests: 6,
+          maxInitialRequests: 4,
+          automaticNameDelimiter: '~',
+          automaticNameMaxLength: 30,
+          cacheGroups: {
+            defaultVendors: {
+              test: /[\\/]node_modules[\\/]/,
+              priority: -10
+            },
+            default: {
+              minChunks: 2,
+              priority: -20,
+              reuseExistingChunk: true
+            }
+          }
+        }
+    },
     plugins:[
-        new webpack.optimize.CommonsChunkPlugin({
-            name:'vendor',
-            filename:'vendor.bundle.js'
-        }),
-       // new htmlWebPackPlugin()
+        new webpack.ProgressPlugin(),
+        new CleanWebpackPlugin({dry: true}),
+        new MiniCssExtractPlugin({ filename: "[name].[contentHash].css" }),
     ]
-}
+}        
