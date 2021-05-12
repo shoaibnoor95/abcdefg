@@ -69,7 +69,7 @@
     "mini-css-extract-plugin": "^0.9.0",
     "moment": "^2.22.2",
     "mongoose": "5.1.0",
-    "nodemailer": "4.6.4",
+    "nodemailer": "6.4.16",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "1.17.2",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
